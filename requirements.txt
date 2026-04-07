@@ -1,0 +1,5 @@
+easyocr
+gradio
+opencv-python
+torch
+torchvision
