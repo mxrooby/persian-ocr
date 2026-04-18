@@ -1,56 +1,96 @@
 # Persian Alphabet Character Recognition
 
-A machine learning-based system that recognizes Persian alphabet characters from images and outputs their corresponding Latin/Romanized equivalents.
-
-## Project Overview
-
-This system accepts an image containing a Persian character, preprocesses it using OpenCV, and passes it through an EasyOCR-based CRNN model with CTC decoding to recognize the character. The recognized character and its Romanized equivalent are then displayed through a Gradio web interface. All recognition history is stored in a local SQLite database.
+A system that recognizes Persian alphabet characters from images and displays their Latin equivalents using a custom CNN model.
 
 ## Tech Stack
 
 | Category | Tool |
 |---|---|
-| Technique | End-to-End Scene Text Recognition (STR) |
-| Model Architecture | CRNN (CNN + LSTM) with CTC Loss |
-| Implementation Library | EasyOCR |
-| Programming Language | Python 3.11+ |
+| Model | Custom CNN (PyTorch) |
 | Image Processing | OpenCV |
 | User Interface | Gradio |
 | Database | SQLite |
-| Development IDE | Visual Studio Code |
-| Version Control | Git |
+| Language | Python 3.11+ |
 
-## Project Structure
-persian-ocr/
-├── app.py              # Main application — UI and recognition logic
-├── preprocessing.py    # Image preprocessing using OpenCV
-├── database.py         # SQLite database setup and operations
-├── requirements.txt    # Python dependencies
-└── README.md           # Project documentation
+## Setup
 
-## Setup Instructions
-
-1. Clone the repository
+```bash
 git clone https://github.com/mxrooby/persian-ocr.git
 cd persian-ocr
-
-2. Create and activate a virtual environment
 python -m venv venv
-venv\Scripts\activate
+venv\Scripts\activate       # MacOS: source venv/bin/activate
+pip install -r requirements.txt
+```
 
-3. Install dependencies
-python -m pip install -r requirements.txt
+## Train the Model
 
-4. Run the application
+```bash
+python train.py
+```
+
+* Trains the CNN using the dataset
+* Automatically saves:
+  * `model/persian_cnn.pth` (best model)
+  * `model/label_map.json` (label mapping)
+
+## Evaluate the Model
+
+```bash
+python test.py
+```
+
+* Loads the trained model
+* Evaluates performance on the test dataset
+* Outputs:
+  * Accuracy per Persian character
+  * Overall accuracy
+  * Status based on threshold (e.g., Meets Threshold / Below Threshold)
+
+## Run the App
+
+```bash
 python app.py
+```
 
-5. Open your browser and go to
+Then open in your browser:
+
+```
 http://127.0.0.1:7860
+```
 
 ## How to Use
 
-1. Upload, capture, or paste an image of a Persian character
-2. Crop the image tightly around the character if needed
-3. Click **Recognize**
-4. The system will display the recognized Persian character and its Romanized equivalent
-5. All recognitions are saved to the history table automatically
+1. Upload an image of a Persian character
+2. Click **Recognize**
+3. The system displays:
+   * Detected character
+   * Character name
+   * Latin equivalent
+4. If the result is incorrect:
+   * Click **Recognize again**
+   * Up to **3 attempts** (uses top-3 predictions)
+
+## Project Structure
+
+```
+persian-ocr/
+├── app.py              # Gradio UI
+├── train.py            # Model training script
+├── test.py             # Model evaluation script
+├── preprocessing.py    # Image preprocessing (OpenCV)
+├── database.py         # SQLite database functions
+├── dataset/            # Dataset
+│   ├── train/
+│   ├── test/
+│   └── label_map.json
+└── model/              # Saved model + label map
+    ├── persian_cnn.pth
+    └── label_map.json
+```
+
+## Notes
+
+* Ensure the dataset is properly structured before training
+* `train.py` will automatically save the best-performing model
+* `test.py` requires the trained model and label map inside the `model/` folder
+* For best results, use clear, centered images of characters

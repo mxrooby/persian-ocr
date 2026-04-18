@@ -1,10 +1,5 @@
 """
 preprocessing.py
-─────────────────
-Robust OpenCV preprocessing pipeline.
-Converts ANY real-world photo of a Persian character into a clean
-white-background black-text image matching the training data format.
-
 Pipeline:
   1. Grayscale
   2. Denoise

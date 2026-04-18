@@ -90,7 +90,7 @@ for fname in sorted(os.listdir(TEST_DIR)):
 
     stem = os.path.splitext(fname)[0]
 
-    # Get true label from .txt or filename
+    # Get true label from .txt
     true_char = None
     txt_path = os.path.join(TEST_DIR, stem + '.txt')
     if os.path.exists(txt_path):
@@ -129,7 +129,7 @@ for char in sorted(char_total.keys(), key=lambda c: label_map.get(c, 99)):
     acc   = 100. * c / t
     name  = PERSIAN_NAMES.get(char, '?')
     latin = PERSIAN_TO_LATIN.get(char, '?')
-    status = "✅" if acc >= 70 else "❌"
+    status = "ACCEPTABLE" if acc >= 70 else "LOW ACCURACY"
     print(f"{char:<6} {name:<12} {latin:<8} {c:>8} {t:>7} {acc:>7.1f}%  {status}")
     overall_c += c
     overall_t += t
