@@ -1,6 +1,6 @@
 easyocr
 gradio
-opencv-python-headless
+opencv-python
 torch
 torchvision
 numpy
