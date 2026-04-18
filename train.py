@@ -1,13 +1,11 @@
 """
 train.py
 ────────
-Trains the Persian CNN on persian_dataset_v2.
+Trains the Persian CNN on dataset.
 Dataset structure:
     dataset/train/  ← flat folder, files like 08_خ_0106.png + 08_خ_0106.txt
     dataset/test/   ← same flat structure
     dataset/label_map.json  ← Persian char → int index
-
-Run: python3 train.py
 """
 import os
 import json
@@ -73,12 +71,7 @@ class PersianCNN(nn.Module):
 
 # ── Dataset ───────────────────────────────────────────────
 class PersianDataset(Dataset):
-    """
-    Flat folder structure:
-        08_خ_0106.png  ← image
-        08_خ_0106.txt  ← contains just the Persian character e.g. 'خ'
-    Label is read from .txt file OR extracted from filename (middle segment).
-    """
+
     def __init__(self, data_dir, label_map, augment=False):
         self.samples   = []
         self.label_map = label_map
