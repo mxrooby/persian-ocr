@@ -96,7 +96,7 @@ After launching the application, open the URL displayed in the terminal to acces
    - Predicted Persian character
    - Character name
    - Latin equivalent
-4. If the prediction is incorrect, click **Recognize Again** to retry using the next best prediction (up to three attempts).
+4. If the prediction is incorrect, click **Recognize** again to retry using the next best prediction (up to three attempts).
 5. View previous predictions in the **History** section.
 
 ## Preview
