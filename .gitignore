@@ -6,4 +6,3 @@ __pycache__/
 .env
 *.pt
 *.pth
-static/persianrecog-bg.jpg
